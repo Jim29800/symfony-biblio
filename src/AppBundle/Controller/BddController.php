@@ -73,4 +73,20 @@ class BddController extends Controller
     public function successAction(){
         return $this->render('default/form_success.html.twig');
     }
+
+    /**
+     * @Route("/liste", name="liste")
+     */
+
+    public function listeAction(){
+
+        $liste = $this->getDoctrine()
+        ->getRepository(Genre::class)
+        ->findAll();
+
+
+        return $this->render('default/liste.html.twig', Array("liste" => $liste));
+    }
+
+    
 }
