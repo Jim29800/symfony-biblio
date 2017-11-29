@@ -14,6 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 
 class BddController extends Controller
@@ -24,24 +26,38 @@ class BddController extends Controller
     public function formAction(Request $request)
     {
 
-        $genre = new Genre();
-        $genre->setType('Action');
 
+
+        // $genre = new Genre();
+        // $genre->setType('Action');
+
+        $liste = $this->getDoctrine()
+        ->getRepository(Genre::class)
+        ->findAll();
+        $genre = $liste[0];
 
         $livre = new Livre();
         $livre->setTitre('le titre');
         $livre->setResume('le resume');
         $livre->setAuteur('lauteur');
         //$livre->setDate('2012-12-12');        
-        $livre->setGenOid($genre);
+        //$livre->setGenOid($genre);
 
         $form = $this->createFormBuilder($livre)
             ->add('titre', TextType::class, array('label' => 'titre'))
             ->add('resume', TextType::class, array('label' => 'resumé'))
             ->add('auteur', TextType::class, array('label' => 'auteur'))   
+            ->add('genOid', ChoiceType::class, array(
+                'label' => 'genre',
+                'choices' => array("Selectionner le genre : " => $liste),
+                'choice_label' => 'type',
+                'choice_value' => 'id',
+            ))               
             ->add('date', DateType::class, array('label' => 'date', 'widget' => 'choice'))            
             ->add('save', SubmitType::class, array('label' => 'Enregistré le Livre'))
             ->getForm();
+
+
 
 
         $form->handleRequest($request);
