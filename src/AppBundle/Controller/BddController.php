@@ -53,7 +53,7 @@ class BddController extends Controller
                 'choice_label' => 'type',
                 'choice_value' => 'id',
             ))               
-            ->add('date', DateType::class, array('label' => 'date', 'widget' => 'choice'))            
+            ->add('date', DateType::class, array('label' => 'date', 'widget' => 'single_text'))            
             ->add('save', SubmitType::class, array('label' => 'Enregistré le Livre'))
             ->getForm();
 
