@@ -2,56 +2,43 @@
 
 namespace AppBundle\Entity;
 
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Utilisateur
- *
- * @ORM\Table(name="utilisateur")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UtilisateurRepository")
+ * @ORM\Entity
+ * @ORM\Table(name="fos_user")
  */
-class Utilisateur
+class Utilisateur extends BaseUser
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pseudo", type="string", length=255, unique=true)
+     * @ORM\Column(name="pseudo", type="string", length=255, unique=true, nullable=true)
      */
     private $pseudo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mdp", type="string", length=255)
+     * @ORM\Column(name="mdp", type="string", length=255, nullable=true)
      */
     private $mdp;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255, unique=true)
-     */
-    private $email;
 
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
+    public function __construct()
     {
-        return $this->id;
+        parent::__construct();
+        // your own logic
     }
+
 
     /**
      * Set pseudo
@@ -101,28 +88,5 @@ class Utilisateur
         return $this->mdp;
     }
 
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return Utilisateur
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
 }
 
