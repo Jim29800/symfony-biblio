@@ -20,7 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class BddController extends Controller
 {
-        /**
+    /**
      * @Route("/form")
      */
     public function formAction(Request $request)
