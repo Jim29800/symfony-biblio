@@ -31,7 +31,7 @@ class Livre
     /**
      * @var string
      *
-     * @ORM\Column(name="liv_resume", type="string", length=255, nullable=true)
+     * @ORM\Column(name="liv_resume", type="text", nullable=true)
      */
     private $resume;
 
@@ -53,9 +53,9 @@ class Livre
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="Genre", inversedBy="tableau")
-     * @ORM\JoinColumn(name="gen_oid", referencedColumnName="gen_oid")
+     * @ORM\JoinColumn(name="genreId", referencedColumnName="gen_oid")
      */
-    private $genOid;
+    private $genre;
     /**
      * Get id
      *
@@ -163,27 +163,27 @@ class Livre
     }
 
     /**
-     * Set genOid
+     * Set genre
      *
-     * @param integer $genOid
+     * @param integer $genre
      *
      * @return Livre
      */
-    public function setGenOid($genOid)
+    public function setGenre($genre)
     {
-        $this->genOid = $genOid;
+        $this->genre = $genre;
 
         return $this;
     }
 
     /**
-     * Get genOid
+     * Get genre
      *
      * @return int
      */
-    public function getGenOid()
+    public function getGenre()
     {
-        return $this->genOid;
+        return $this->genre;
     }
 }
 

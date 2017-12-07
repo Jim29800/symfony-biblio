@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+    {% block title %}Bibliothèque{% endblock %}
+    {% block stylesheets %}
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    {% endblock %}
+
+
+    {% block body %}
+    <select>
+        {% for type in liste %}
+        <option class="form-control">{{ type.titre}}</option>
+        {# <option>{{ form_widget(type.type, { 'attr': {'class': 'form-control'} }) }}</option> #}
+        
+        {% endfor %}
+    </select>
+
+    <ul class="uk-list uk-list-bullet">
+        
+        {% for value in liste %}
+        <li>{{ value.titre }} : {{ value.genre.type }}</li>
+        {% endfor %}
+    </ul>
+    
+    
+    
+    {% for value in liste %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Category</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td scope="row"></td>
+                <td>{{ value.titre }}</td>
+                <td>{{ value.genre.type }}</td>
+            </tr>
+            <tr>
+                <td scope="row"></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    {% endfor %}
+
+
+
+
+
+
+    {% endblock %}
+    {% block javascripts %}{% endblock %}
+
+
+
+
+
+
+
+

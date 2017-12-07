@@ -103,57 +103,36 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
-        // app_bdd_form
-        if ('/form' === $pathinfo) {
-            return array (  '_controller' => 'AppBundle\\Controller\\BddController::formAction',  '_route' => 'app_bdd_form',);
-        }
+        elseif (0 === strpos($pathinfo, '/bddcontroller')) {
+            // app_bdd_form
+            if ('/bddcontroller/form' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\BddController::formAction',  '_route' => 'app_bdd_form',);
+            }
 
-        // Livre_creer
-        if ('/ok' === $pathinfo) {
-            return array (  '_controller' => 'AppBundle\\Controller\\BddController::successAction',  '_route' => 'Livre_creer',);
-        }
+            // Livre_créé
+            if ('/bddcontroller/ok' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\BddController::successAction',  '_route' => 'Livre_créé',);
+            }
 
-        if (0 === strpos($pathinfo, '/l')) {
             // liste
-            if ('/liste' === $pathinfo) {
+            if ('/bddcontroller/liste' === $pathinfo) {
                 return array (  '_controller' => 'AppBundle\\Controller\\BddController::listeAction',  '_route' => 'liste',);
             }
 
-            if (0 === strpos($pathinfo, '/login')) {
-                // fos_user_security_login
-                if ('/login' === $pathinfo) {
-                    if (!in_array($canonicalMethod, array('GET', 'POST'))) {
-                        $allow = array_merge($allow, array('GET', 'POST'));
-                        goto not_fos_user_security_login;
-                    }
-
-                    return array (  '_controller' => 'FOS\\UserBundle\\Controller\\SecurityController::loginAction',  '_route' => 'fos_user_security_login',);
-                }
-                not_fos_user_security_login:
-
-                // fos_user_security_check
-                if ('/login_check' === $pathinfo) {
-                    if ('POST' !== $canonicalMethod) {
-                        $allow[] = 'POST';
-                        goto not_fos_user_security_check;
-                    }
-
-                    return array (  '_controller' => 'FOS\\UserBundle\\Controller\\SecurityController::checkAction',  '_route' => 'fos_user_security_check',);
-                }
-                not_fos_user_security_check:
-
+            // app_bdd_addgenre
+            if ('/bddcontroller/addgenre' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\BddController::addGenreAction',  '_route' => 'app_bdd_addgenre',);
             }
 
-            // fos_user_security_logout
-            if ('/logout' === $pathinfo) {
-                if (!in_array($canonicalMethod, array('GET', 'POST'))) {
-                    $allow = array_merge($allow, array('GET', 'POST'));
-                    goto not_fos_user_security_logout;
-                }
-
-                return array (  '_controller' => 'FOS\\UserBundle\\Controller\\SecurityController::logoutAction',  '_route' => 'fos_user_security_logout',);
+            // app_bdd_showlivre
+            if ('/bddcontroller/showlivre' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\BddController::showLivreAction',  '_route' => 'app_bdd_showlivre',);
             }
-            not_fos_user_security_logout:
+
+            // app_bdd_showgenre
+            if ('/bddcontroller/showgenre' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\BddController::showGenreAction',  '_route' => 'app_bdd_showgenre',);
+            }
 
         }
 
@@ -165,6 +144,42 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
             return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'homepage',);
         }
+
+        if (0 === strpos($pathinfo, '/login')) {
+            // fos_user_security_login
+            if ('/login' === $pathinfo) {
+                if (!in_array($canonicalMethod, array('GET', 'POST'))) {
+                    $allow = array_merge($allow, array('GET', 'POST'));
+                    goto not_fos_user_security_login;
+                }
+
+                return array (  '_controller' => 'FOS\\UserBundle\\Controller\\SecurityController::loginAction',  '_route' => 'fos_user_security_login',);
+            }
+            not_fos_user_security_login:
+
+            // fos_user_security_check
+            if ('/login_check' === $pathinfo) {
+                if ('POST' !== $canonicalMethod) {
+                    $allow[] = 'POST';
+                    goto not_fos_user_security_check;
+                }
+
+                return array (  '_controller' => 'FOS\\UserBundle\\Controller\\SecurityController::checkAction',  '_route' => 'fos_user_security_check',);
+            }
+            not_fos_user_security_check:
+
+        }
+
+        // fos_user_security_logout
+        if ('/logout' === $pathinfo) {
+            if (!in_array($canonicalMethod, array('GET', 'POST'))) {
+                $allow = array_merge($allow, array('GET', 'POST'));
+                goto not_fos_user_security_logout;
+            }
+
+            return array (  '_controller' => 'FOS\\UserBundle\\Controller\\SecurityController::logoutAction',  '_route' => 'fos_user_security_logout',);
+        }
+        not_fos_user_security_logout:
 
         if (0 === strpos($pathinfo, '/profile')) {
             // fos_user_profile_show
